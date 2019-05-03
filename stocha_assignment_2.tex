@@ -1,0 +1,133 @@
+%Template
+% !TeX spellcheck = de 
+\documentclass[a4paper]{scrartcl}
+\usepackage[utf8]{inputenc}
+%\usepackage[ngerman]{babel}
+\usepackage{geometry,forloop,fancyhdr,fancybox,lastpage}
+\usepackage{listings}
+\lstset{frame=tb,
+	language=Java,
+	aboveskip=3mm,
+	belowskip=3mm,
+	showstringspaces=false,
+	columns=flexible,
+	basicstyle={\small\ttfamily},
+	numbers=left,
+	numberstyle=\tiny\color{gray},
+	keywordstyle=\color{blue},
+	commentstyle=\color{dkgreen},
+	stringstyle=\color{mauve},
+	breaklines=true,
+	breakatwhitespace=true,
+	tabsize=3
+}
+\geometry{a4paper,left=3cm, right=3cm, top=3cm, bottom=3cm}
+% Diese Daten müssen pro Blatt angepasst werden:
+\newcommand{\NUMBER}{6}
+\newcommand{\EXERCISES}{3}
+% Diese Daten müssen einmalig pro Vorlesung angepasst werden:
+\newcommand{\COURSE}{Stochastik}
+\newcommand{\TUTOR}{TBD}
+\newcommand{\STUDENTA}{Stefan Wezel}
+\newcommand{\STUDENTB}{Stefan Wezel}
+\newcommand{\STUDENTC}{}
+\newcommand{\DEADLINE}{07.06.2018}
+
+
+
+
+%Math
+\usepackage{amsmath,amssymb,tabularx}
+
+%Figures
+\usepackage{graphicx,tikz,color,float}
+\graphicspath{ {home/stefan/picures/} }
+\usetikzlibrary{shapes,trees}
+
+%Algorithms
+\usepackage[ruled,linesnumbered]{algorithm2e}
+
+%Kopf- und Fußzeile
+\pagestyle {fancy}
+\fancyhead[L]{\STUDENTA}
+\fancyhead[C]{\COURSE}
+\fancyhead[R]{\today}
+
+\fancyfoot[L]{}
+\fancyfoot[C]{}
+\fancyfoot[R]{Seite \thepage}
+
+%Formatierung der Überschrift, hier nichts ändern
+\def\header#1#2{
+	\begin{center}
+		{\Large\bf Übungsblatt #1}\\
+		{(Abgabetermin #2)}
+	\end{center}
+}
+
+%Definition der Punktetabelle, hier nichts ändern
+\newcounter{punktelistectr}
+\newcounter{punkte}
+\newcommand{\punkteliste}[2]{%
+	\setcounter{punkte}{#2}%
+	\addtocounter{punkte}{-#1}%
+	\stepcounter{punkte}%<-- also punkte = m-n+1 = Anzahl Spalten[1]
+	\begin{center}%
+		\begin{tabularx}{\linewidth}[]{@{}*{\thepunkte}{>{\centering\arraybackslash} X|}@{}>{\centering\arraybackslash}X}
+			\forloop{punktelistectr}{#1}{\value{punktelistectr} < #2 } %
+			{%
+				\thepunktelistectr &
+			}
+			#2 &  $\Sigma$ \\
+			\hline
+			\forloop{punktelistectr}{#1}{\value{punktelistectr} < #2 } %
+			{%
+				&	
+			} &\\
+			\forloop{punktelistectr}{#1}{\value{punktelistectr} < #2 } %
+			{%
+				&
+			} &\\
+		\end{tabularx}
+	\end{center}
+}
+
+\begin{document}
+
+\section*{Aufgabe 7}
+
+
+\section*{Aufgabe 8}
+\subsection*{(a)}
+\begin{center}
+	\includegraphics*[scale = 0.5]{aufgabe_8_a.png}
+\end{center}
+
+
+\subsection*{(b)}
+Der Korrelationskoeffizient nach Pearson von Größe und Masse ist $0.9307936$.
+\begin{center}
+	\includegraphics*[scale = 0.5]{aufgabe_8_b.png}
+\end{center}
+
+
+\subsection*{(c)}
+$\Omega = \lbrace f,m\rbrace$\\
+$\mathcal{F} = \lbrace \emptyset, \lbrace f \rbrace, \lbrace m\rbrace, \Omega\rbrace$\\
+$ P(\emptyset) = \frac{0}{18} = 0, P(m) = \frac{10}{18}, P(f) = \frac{8}{18}, P(\Omega) = \frac{18}{18} = 1$
+
+
+\subsection*{(d)}
+$\Omega = \lbrace21,22,23,24,25,26,27,28 \rbrace$\\
+$\mathcal{F} = \mathcal{P}(\Omega)$\\
+$ P=unif(\Omega)$
+
+%TODO check whether this is correct
+\begin{center}
+	\includegraphics*[scale = 0.5]{alter_verteilungsfunktion.png}
+\end{center}
+
+
+
+
+\end{document}
