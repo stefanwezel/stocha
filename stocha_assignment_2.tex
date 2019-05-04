@@ -4,6 +4,8 @@
 \usepackage[utf8]{inputenc}
 %\usepackage[ngerman]{babel}
 \usepackage{geometry,forloop,fancyhdr,fancybox,lastpage}
+\usepackage{dsfont}
+
 \usepackage{listings}
 \lstset{frame=tb,
 	language=Java,
@@ -95,6 +97,74 @@
 \begin{document}
 
 \section*{Aufgabe 7}
+\subsection*{(a)}
+$
+\;\;\;\;\;\int_{-1}^{1} c(-x^4 + 1) \cdot \mathds{1}_{\left[-1,2\right]}\\\\
+\Leftrightarrow \int_{-1}^{1} c(-x^4 + 1)\\\\
+\Leftrightarrow \left[ c(-\frac{1}{5} \cdot x^5 + x) \right]_{-1}^1\\\\
+\Leftrightarrow \left( c \left( -\frac{1}{5} + 1 \right)\right) - \left( c \left( \frac{1}{5} - 1 \right)  \right)\\\\
+\Leftrightarrow c \left( \frac{4}{5} \right) - c\left( -\frac{4}{5} \right)\\\\
+\Leftrightarrow c \left( \frac{4}{5} + \frac{4}{5} \right)\\\\
+\Leftrightarrow \frac{8}{5}  \cdot c
+$\\\\
+Wir wissen: das Integral muss 1 ergeben.\\
+$
+\Rightarrow \frac{8}{5} \cdot c = 1\\
+\Leftrightarrow c = \frac{5}{8} 
+$\\
+Ein geeignets $c$ währe also $c=\frac{5}{8}$\\
+\\
+Auf das selbe Ergebnis kommt man, wenn folgenden Code ausführt:\\
+Hierbei ignorieren wir zunächst die Konstante c um sie dann anschließend gleich der bekannten Fläche 1 zu setzen.
+\begin{lstlisting}
+	eq = function(x){(1 - x^4)}
+	
+	area = (integrate(eq, -1, 1))
+	c = (1 / area) # normalize area under curve
+	print(c)
+	>>> [1] 0.625 # =5/8
+\end{lstlisting}
+
+
+\subsection*{(b)}
+%TODO
+Die Verteilungsfunktion $F$ ist die Stammfuntion von $f$. Daher gilt:\\
+$F = \frac{5}{8} \cdot (\frac{1}{5}x^5 + x)$
+\subsection*{(c)}
+\begin{center}
+	\includegraphics*[scale = 0.5]{aufgabe_7_c.png}
+\end{center}
+
+
+\subsection*{(c)}
+$
+\;\;\;\;\;\int_{-0.5}^{0.5} \frac{5}{8}(-x^4 + 1) \cdot \mathds{1}_{\left[-1,2\right]}\\\\
+\Leftrightarrow \int_{-0.5}^{0.5} \frac{5}{8}(-x^4 + 1)\\\\
+\Leftrightarrow \left[ \frac{5}{8} (\frac{1}{5} x^5 + x) \right]_{-\frac{1}{2}}^{\frac{1}{2}}\\\\
+\Leftrightarrow 
+\frac{5}{8}(-\frac{1}{5} \cdot \frac{1}{32} + \frac{1}{2})
+- \frac{5}{8}(\frac{1}{5} \cdot -\frac{1}{32} - \frac{1}{2})\\\\
+\Leftrightarrow 
+\frac{5}{8}(-\frac{1}{160} + \frac{80}{160})
+- \frac{5}{8}(\frac{1}{160} - \frac{80}{160})\\\\
+\Leftrightarrow \frac{5}{8} \cdot \frac{79}{160} - \frac{5}{8} \cdot - \frac{79}{160}\\\\
+\Leftrightarrow\frac{5}{8} \cdot \frac{158}{160}\\\\
+\Leftrightarrow\frac{79}{128} = 0.6171875
+$
+\\
+\\
+Durch folgenden R code  lässt sich die Wahrscheinlichkeit bestimmen:\\
+\begin{lstlisting}
+	eq = function(x){0.625 * (1 - x^4)}
+	probability = integrate(eq2, -0.5, 0.5)
+	print(probability)
+	>>> [1] 0.6171875
+\end{lstlisting}
+
+
+
+
+
 
 
 \section*{Aufgabe 8}

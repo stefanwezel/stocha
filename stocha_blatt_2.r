@@ -74,3 +74,28 @@
        col.axis = "darkslategray",
        col = 'coral')
 print(data)
+
+
+
+###########################
+#eq = function(x){x*x}
+c = 5/8
+eq = function(x){(1 - x^4)}
+eq2 = function(x){0.625 * (1 - x^4)}
+area = (integrate(eq, -1, 1))
+area_2 = integrate(eq2, -0.5, 0.5)
+print(area_2)
+#print(area)
+normalized_area = (1 / 1.6)
+#print(normalized_area)
+
+curve(eq, from=-1, to=1, xlab="x", ylab="y", 
+      xlim = c(-2, 2),
+      col = "coral",
+      col.lab="darkslategray",
+      col.main = "darkslategray",
+      col.axis = "darkslategray",
+      bty = "n")
+
+
+
