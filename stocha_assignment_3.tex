@@ -1,0 +1,138 @@
+%Template
+% !TeX spellcheck = de 
+\documentclass[a4paper]{scrartcl}
+\usepackage[utf8]{inputenc}
+%\usepackage[ngerman]{babel}
+\usepackage{geometry,forloop,fancyhdr,fancybox,lastpage}
+\usepackage{dsfont}
+
+\usepackage{listings}
+\lstset{frame=tb,
+	language=Java,
+	aboveskip=3mm,
+	belowskip=3mm,
+	showstringspaces=false,
+	columns=flexible,
+	basicstyle={\small\ttfamily},
+	numbers=left,
+	numberstyle=\tiny\color{gray},
+	keywordstyle=\color{blue},
+	commentstyle=\color{dkgreen},
+	stringstyle=\color{mauve},
+	breaklines=true,
+	breakatwhitespace=true,
+	tabsize=3
+}
+\geometry{a4paper,left=3cm, right=3cm, top=3cm, bottom=3cm}
+% Diese Daten müssen pro Blatt angepasst werden:
+\newcommand{\NUMBER}{6}
+\newcommand{\EXERCISES}{3}
+% Diese Daten müssen einmalig pro Vorlesung angepasst werden:
+\newcommand{\COURSE}{Stochastik}
+\newcommand{\TUTOR}{TBD}
+\newcommand{\STUDENTA}{Stefan Wezel}
+\newcommand{\STUDENTB}{Stefan Wezel}
+\newcommand{\STUDENTC}{}
+\newcommand{\DEADLINE}{07.06.2018}
+
+
+
+
+%Math
+\usepackage{amsmath,amssymb,tabularx}
+
+%Figures
+\usepackage{graphicx,tikz,color,float}
+\graphicspath{ {home/stefan/picures/} }
+\usetikzlibrary{shapes,trees}
+
+%Algorithms
+\usepackage[ruled,linesnumbered]{algorithm2e}
+
+%Kopf- und Fußzeile
+\pagestyle {fancy}
+\fancyhead[L]{\STUDENTA}
+\fancyhead[C]{\COURSE}
+\fancyhead[R]{\today}
+
+\fancyfoot[L]{}
+\fancyfoot[C]{}
+\fancyfoot[R]{Seite \thepage}
+
+%Formatierung der Überschrift, hier nichts ändern
+\def\header#1#2{
+	\begin{center}
+		{\Large\bf Übungsblatt #1}\\
+		{(Abgabetermin #2)}
+	\end{center}
+}
+
+%Definition der Punktetabelle, hier nichts ändern
+\newcounter{punktelistectr}
+\newcounter{punkte}
+\newcommand{\punkteliste}[2]{%
+	\setcounter{punkte}{#2}%
+	\addtocounter{punkte}{-#1}%
+	\stepcounter{punkte}%<-- also punkte = m-n+1 = Anzahl Spalten[1]
+	\begin{center}%
+		\begin{tabularx}{\linewidth}[]{@{}*{\thepunkte}{>{\centering\arraybackslash} X|}@{}>{\centering\arraybackslash}X}
+			\forloop{punktelistectr}{#1}{\value{punktelistectr} < #2 } %
+			{%
+				\thepunktelistectr &
+			}
+			#2 &  $\Sigma$ \\
+			\hline
+			\forloop{punktelistectr}{#1}{\value{punktelistectr} < #2 } %
+			{%
+				&	
+			} &\\
+			\forloop{punktelistectr}{#1}{\value{punktelistectr} < #2 } %
+			{%
+				&
+			} &\\
+		\end{tabularx}
+	\end{center}
+}
+
+\begin{document}
+
+\section*{Aufgabe 9}
+Wir können folgenden Wahrscheinlichkeitsraum benutzen:\\\\
+$
+\Omega = \lbrace 
+	\text{rot ohne Aufdruck}, 
+	\text{rot mit Aufdruck},\\
+	\text{grün ohne Aufdruck},
+	\text{grün mit Aufdruck},\\
+	\text{blau ohne Aufdruck},
+	\text{blau mit Aufdruck}
+	\rbrace
+\\\\
+\mathcal{F} = \mathcal{P}(\Omega)\\\\
+P = \lbrace
+	P(\emptyset) = 0,\\
+	P(\text{rot ohne Aufdruck}) = \frac{27}{100},\\
+	P(\text{rot mit Aufdruck}) = \frac{3}{100},\\
+	P(\text{grün ohne Aufdruck}) = \frac{12}{50},\\
+	P(\text{grün mit Aufdruck}) = \frac{3}{50},\\
+	P(\text{blau ohne Aufdruck}) = \frac{4}{100},\\
+	P(\text{blau mit Aufdruck}) = \frac{36}{100},\\
+	P(\Omega) = 1
+	\rbrace
+\\\\
+... = (\Omega, \mathcal{F}, P)
+$
+\\\\
+Nach dem Theorem von Bayes können wir für die Wahrscheinlichkeit, dass eine gezogene Kugel rot ist, unter Annahme des Priors, dass sie ein Aufdruck besitzt folgende Gleichung aufstellen:\\\\
+$
+P(Rot|Aufdruck) \Leftrightarrow \frac{P(Aufdruck|Rot) \cdot P(Rot)}{P(Aufdruck)}\\\\
+\Leftrightarrow \frac{P(Aufdruck|Rot) \cdot P(Rot)}{P(Aufdruck|Rot) \cdot P(Rot) + P(Aufdruck|Gruen) \cdot P(Gruen) + P(Aufdruck|Blau) \cdot P(Blau)}\\\\
+\Leftrightarrow \frac{\frac{1}{10} \cdot \frac{3}{10}}{\frac{1}{10} \cdot \frac{3}{10} + \frac{1}{5} \cdot \frac{3}{10} + \frac{1}{10} \cdot \frac{4}{10}}\\\\
+\Leftrightarrow \frac{\frac{3}{100}}{\frac{3}{100} + \frac{6}{100} + \frac{4}{100}}\\\\
+\Leftrightarrow \frac{\frac{3}{100}}{\frac{13}{100}}\\\\
+\Leftrightarrow \frac{300}{1300}\\\\
+\Leftrightarrow \frac{3}{13}
+$
+
+
+\end{document}
