@@ -107,16 +107,16 @@ $
 	\text{blau ohne Aufdruck},
 	\text{blau mit Aufdruck}
 	\rbrace
-\\\\
+\\\\ %TODO doesn't sum up to 1
 \mathcal{F} = \mathcal{P}(\Omega)\\\\
 P = \lbrace
 	P(\emptyset) = 0,\\
-	P(\text{rot ohne Aufdruck}) = \frac{27}{100},\\
-	P(\text{rot mit Aufdruck}) = \frac{3}{100},\\
-	P(\text{grün ohne Aufdruck}) = \frac{12}{50},\\
-	P(\text{grün mit Aufdruck}) = \frac{3}{50},\\
-	P(\text{blau ohne Aufdruck}) = \frac{4}{100},\\
-	P(\text{blau mit Aufdruck}) = \frac{36}{100},\\
+	P(\text{rot ohne Aufdruck}) = \frac{3}{10} \cdot \frac{9}{10} = \frac{27}{100},\\
+	P(\text{rot mit Aufdruck}) = \frac{3}{10} \cdot \frac{1}{10}  = \frac{3}{100},\\
+	P(\text{blau ohne Aufdruck}) = \frac{3}{10} \cdot \frac{9}{10}  = \frac{27}{50},\\
+	P(\text{blau mit Aufdruck}) = \frac{3}{10} \cdot \frac{1}{10}  = \frac{3}{50},\\
+	P(\text{grün ohne Aufdruck}) = \frac{4}{10} \cdot \frac{8}{10}  = \frac{32}{100},\\
+	P(\text{grün mit Aufdruck}) = \frac{4}{10} \cdot \frac{2}{10}  = \frac{8}{100},\\
 	P(\Omega) = 1
 	\rbrace
 \\\\
@@ -126,13 +126,29 @@ $
 Nach dem Theorem von Bayes können wir für die Wahrscheinlichkeit, dass eine gezogene Kugel rot ist, unter Annahme des Priors, dass sie ein Aufdruck besitzt folgende Gleichung aufstellen:\\\\
 $
 P(Rot|Aufdruck) \Leftrightarrow \frac{P(Aufdruck|Rot) \cdot P(Rot)}{P(Aufdruck)}\\\\
-\Leftrightarrow \frac{P(Aufdruck|Rot) \cdot P(Rot)}{P(Aufdruck|Rot) \cdot P(Rot) + P(Aufdruck|Gruen) \cdot P(Gruen) + P(Aufdruck|Blau) \cdot P(Blau)}\\\\
-\Leftrightarrow \frac{\frac{1}{10} \cdot \frac{3}{10}}{\frac{1}{10} \cdot \frac{3}{10} + \frac{1}{5} \cdot \frac{3}{10} + \frac{1}{10} \cdot \frac{4}{10}}\\\\
-\Leftrightarrow \frac{\frac{3}{100}}{\frac{3}{100} + \frac{6}{100} + \frac{4}{100}}\\\\
-\Leftrightarrow \frac{\frac{3}{100}}{\frac{13}{100}}\\\\
-\Leftrightarrow \frac{300}{1300}\\\\
-\Leftrightarrow \frac{3}{13}
+\Leftrightarrow \frac{P(Aufdruck|Rot) \cdot P(Rot)}{P(Aufdruck|Rot) \cdot P(Rot) + P(Aufdruck|Blau) \cdot P(Blau) + P(Aufdruck|Gruen) \cdot P(Gruen)}\\\\
+\Leftrightarrow \frac{\frac{1}{10} \cdot \frac{3}{10}}{\frac{1}{10} \cdot \frac{3}{10} + \frac{1}{10} \cdot \frac{3}{10} + \frac{2}{10} \cdot \frac{4}{10}}\\\\
+\Leftrightarrow \frac{\frac{3}{100}}{\frac{3}{100} + \frac{3}{100} + \frac{8}{100}}\\\\
+\Leftrightarrow \frac{\frac{3}{100}}{\frac{14}{100}}\\\\
+\Leftrightarrow \frac{300}{1400}\\\\
+\Leftrightarrow \frac{3}{14}
 $
 
 
+\section*{Aufgabe 10}
+\subsection*{(a)}
+Die Zahlen stehen jeweils für die Anzahl der gewürfelten Augen. Die Wahrscheinlichkeit einer Summe ergibt sich aus den aufsummierten Wahrscheinlichkeiten der möglichen Kombinationen.\\\\
+$
+P(2) = P(1) \cdot P(1) = \frac{1}{6} \cdot \frac{1}{6} = \frac{1}{36}\\\\
+P(3) = 2 \cdot P(2) \cdot P(1) =2 \cdot\frac{1}{6} \cdot \frac{1}{6} =\frac{2}{36}= \frac{1}{18}\\\\
+P(4) = P(2) \cdot + P(2) + P(3) \cdot P(1) \cdot 2 = \frac{1}{6} \cdot \frac{1}{6} + \frac{1}{6} \cdot \frac{1}{6} \cdot 2 = \frac{1}{36} + \frac{2}{36} = \frac{3}{36} = \frac{1}{12}\\\\
+P(5) = 2 \cdot P(1) \cdot P(1) + 2 \cdot P(3)\cdot P(2) = 2 \cdot \frac{1}{36} +2 \cdot \frac{1}{36} = \frac{4}{36} = \frac{1}{9}\\\\
+P(6) = 2 \cdot P(5) \cdot P(1) + 2 \cdot P(4) \cdot P(2) + P(3) \cdot P(3) = \frac{2}{36} + \frac{2}{36} + \frac{1}{36} = \frac{5}{36}\\\\
+P(7) = 2 \cdot P(6) \cdot P(1) + 2 \cdot P(5) \cdot P(2) +2 \cdot P(4) \cdot P(3) = 2 \cdot \frac{1}{36} + 2 \cdot \frac{1}{36} + 2 \cdot \frac{1}{36} = \frac{6}{36} = \frac{1}{6}\\\\
+P(8) = 2 \cdot P(6) \cdot P(2) + 2 \cdot P(5) \cdot P(3) + P(4) \cdot P(4) = \frac{2}{36} + \frac{2}{36} + \frac{1}{36} = \frac{5}{36}\\\\
+P(9) = 2 \cdot P(5) \cdot P(4) + 2 \cdot P(6)\cdot P(3) = 2 \cdot \frac{1}{36} +2 \cdot \frac{1}{36} = \frac{4}{36} = \frac{1}{9}\\\\
+P(10) = 2 \cdot P(6) \cdot P(4) + P(5) \cdot P(5) = \frac{2}{36} +  \frac{1}{36} = \frac{3}{36} = \frac{1}{12}\\\\
+P(11) = 2 \cdot P(5) \cdot P(6) = 2 \cdot \frac{1}{6} \cdot \frac{1}{6} = \frac{2}{36} = \frac{1}{18}\\\\
+P(12) = P(6) \cdot P(6) = \frac{1}{6} \cdot \frac{1}{6} = \frac{1}{36}
+$
 \end{document}
