@@ -5,7 +5,7 @@
 %\usepackage[ngerman]{babel}
 \usepackage{geometry,forloop,fancyhdr,fancybox,lastpage}
 \usepackage{dsfont}
-
+\usepackage{tikz}
 \usepackage{listings}
 \lstset{frame=tb,
 	language=Java,
@@ -137,8 +137,8 @@ $
 
 \section*{Aufgabe 10}
 \subsection*{(a)}
-Die Zahlen stehen jeweils für die Anzahl der gewürfelten Augen. Die Wahrscheinlichkeit einer Summe ergibt sich aus den aufsummierten Wahrscheinlichkeiten der möglichen Kombinationen.\\\\
-$
+Die Zahlen stehen jeweils für die Anzahl der gewürfelten Augen. Die Wahrscheinlichkeit einer Summe ergibt sich aus den aufsummierten Wahrscheinlichkeiten der möglichen Kombinationen.
+\newpage$
 P(2) = P(1) \cdot P(1) = \frac{1}{6} \cdot \frac{1}{6} = \frac{1}{36}\\\\
 P(3) = 2 \cdot P(2) \cdot P(1) =2 \cdot\frac{1}{6} \cdot \frac{1}{6} =\frac{2}{36}= \frac{1}{18}\\\\
 P(4) = P(2) \cdot + P(2) + P(3) \cdot P(1) \cdot 2 = \frac{1}{6} \cdot \frac{1}{6} + \frac{1}{6} \cdot \frac{1}{6} \cdot 2 = \frac{1}{36} + \frac{2}{36} = \frac{3}{36} = \frac{1}{12}\\\\
@@ -151,4 +151,59 @@ P(10) = 2 \cdot P(6) \cdot P(4) + P(5) \cdot P(5) = \frac{2}{36} +  \frac{1}{36}
 P(11) = 2 \cdot P(5) \cdot P(6) = 2 \cdot \frac{1}{6} \cdot \frac{1}{6} = \frac{2}{36} = \frac{1}{18}\\\\
 P(12) = P(6) \cdot P(6) = \frac{1}{6} \cdot \frac{1}{6} = \frac{1}{36}
 $
+
+\subsection*{(b)}
+Wir mit einem Würfel an und fügen dann falls benötigt neue Augenzahlen hinzu um die drei freien Flächen zu füllen.\\
+Stimmen die Wahrscheinlichkeiten mit der, der vorherigen Teilaufgabe überein (also wenn $p_k = q_k$), sind sie mit einem $\checkmark$ markiert.
+\\
+\\
+$
+P(2) = P(1) \cdot P(1) = \frac{1}{3} \cdot \frac{1}{12} = \frac{1}{36} \checkmark\\\\
+P(3) = P(1) \cdot P(2) \cdot 2= \frac{1}{3} \cdot \frac{1}{12} \cdot 2 = \frac{2}{36} = \frac{1}{18} \checkmark\\\\
+P(4) = P(1) \cdot P(3) \cdot 2 + P(2) \cdot P(2) = \frac{1}{3} \cdot \frac{1}{12} \cdot 2 + \frac{1}{3} \cdot \frac{1}{12}=\frac{2}{36} \frac{1}{36} = \frac{3}{36} = \frac{1}{12} \checkmark\\\\
+P(5) = P(1) \cdot P(4) + P(2) \cdot P(3) \cdot 2 = \frac{1}{36} + \frac{2}{36} = \frac{3}{36} \\
+\Rightarrow \text{Eine weitere 4 wird benoetigt. Dann: } \frac{1}{3} \cdot \frac{2}{12} + \frac{2}{36} = \frac{4}{36} =\frac{1}{9}\checkmark\\\\
+P(6) = P(1) \cdot P(5) + P(2) \cdot P(4) + P(3) \cdot P(3) = \frac{1}{36} \cdot \frac{2}{36} \cdot \frac{1}{36} = \frac{4}{36}\\
+\Rightarrow \text{Eine weitere 5 wird benoetigt. Dann: } \frac{2}{36} + \frac{2}{36} + \frac{1}{36} = \frac{5}{36}\checkmark\\\\
+P(7) = P(1) \cdot P(6) + P(2) \cdot P(5) + P(3) \cdot P(4) = \frac{1}{36} + \frac{2}{26} + \frac{2}{36} = \frac{5}{36}\\
+\Rightarrow \text{Eine weitere 6 wird benoetigt. Dann: } \frac{2}{36} + \frac{2}{36} + \frac{2}{36} = \frac{6}{36} = \frac{1}{6}\checkmark\\\\
+\text{Jetzt sind nur noch 3 Felder übrig... hoffen wir also, dass es reicht...}\\
+\\
+P(8) = P(1) \cdot P(7) + P(2) \cdot P(6) + P(3)\cdot P(5) = \frac{1}{36} + \frac{2}{36} + \frac{2}{36} = \frac{5}{36} \text{Juhu!} \checkmark\\\\
+P(9) = P(1) \cdot P(8) + P(2) \cdot P(7) + P(3) \cdot P(6) = \frac{1}{36} + \frac{1}{36} + \frac{1}{36} + \frac{2}{36} = \frac{4}{36} = \frac{1}{9}\checkmark\\\\
+P(10) = P(1) \cdot P(9) + P(2) \cdot P(8) + P(3) \cdot P(7) = \frac{1}{36} + \frac{1}{36}+\frac{1}{36} = \frac{3}{36} = \frac{1}{12} \checkmark\\\\
+P(11) = P(2) \cdot P(9) + P(2) \cdot P(9) = \frac{1}{36} + \frac{1}{36} = \frac{2}{36} = \frac{1}{18} \checkmark\\\\
+P(12) = P(3) \cdot P(9) = \frac{1}{3} \cdot \frac{1}{12} = \frac{1}{36} \checkmark
+$
+\\
+\\
+Daraus resultiert ein Dodekaeder mit folgenden Augenzahlen:\\\\
+\begin{tabular}{|c|c|c|c|}
+	\hline 
+	1 & 2 & 3 & 4 \\ 
+	\hline 
+	4 & 5 & 5 & 6 \\ 
+	\hline 
+	6 & 7 & 8 & 9 \\ 
+	\hline 
+\end{tabular} 
+
+
+
+\section*{Aufgabe 3}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 \end{document}
