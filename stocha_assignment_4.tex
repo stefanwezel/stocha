@@ -143,13 +143,65 @@ Die Teilmenge ist nun $\lbrace x: -4 \leq x \leq 4 \rbrace $, da sie die andere 
 	&=P(\left[-t^2, t^2\right] \cap \left[ -4, 4 \right])\\
 	& = P(\left[-2, 2 \right])
 \end{align*}
+%TODO ueberarbeiten
 
 
 
 
+\section*{Aufgabe 13}
+\subsection*{(a)}
+Um die c zu bestimmen berechnen wir mithilfe von r zunächst das Integral der Funktion $f$ mit den Grenzen 0 und 4. Zunächst noch ohne c. Wir wissen, dass die Fläche unter einer Dichtefunktion 1 sein muss. Haben wir also das Integral berechnet normieren wir das Ergebnis, indem wir 1 durch es teilen. Daraus ergibt sich der Wert $0.5015351$ für c.\\
+Dafür kann folgender R code verwendet werden:\\
+\\
+\begin{lstlisting}
+	eq = function(x){x^(-x)}
+	area = integrate(eq, 0, 4)
+	c = 1/as.numeric(area3[1])
+	print(c)
+	>>> [1] 0.5015351 # <- Ergebnis fuer c
+\end{lstlisting}
 
 
 
+\subsection*{(b)}
+Um die Verteilungsfunktion für $f(x) = 0.5015351 \cdot x^{-x} \mathds{1}_{\left[0,4\right]}(x)$ aufzustellen, unterscheiden wir drei Fälle. \\
+Für $t < 0$:\\
+$
+F(t) = P(\left(-\infty, t  \right]) = \int_{-\infty}^{t}f(x)dx = \int_{-\infty}^{t} = 0\\
+$\\
+Für $ 0 \leq t < 4$:\\
+$
+F(t) = P(\left(-\infty, t  \right]) = \int_{-\infty}^{0}f(x)dx + \int_{0}^{t} f(x)dx= \int_{-\infty}^{t}  + \int_{0}^{t}0.5015351 \cdot x^{-x}= 0 + \int_{0}^{t}0.5015351 \cdot\\
+$\\
+Für $ 4 < t$:\\
+$
+F(t) = P(\left(-\infty, t  \right]) = \int_{-\infty}^{0}f(x)dx + \int_{0}^{4} f(x)dx + \int_{4}^{t}f(x)dx= \int_{-\infty}^{4}  + \int_{0}^{4}\;0.5015351 \cdot x^{-x} + \int_{4}^{t}= 0 + 1 + 0 = 1\\
+$\\
+\\
+In R sieht die Verteilungsfunktion, dann folgendermaßen aus:\\
+\\
+\begin{lstlisting}
+F <- function(t){
+	if(t < 0){
+		return(0)
+	}
+	else if(t >=0 && t < 4){
+		return(as.numeric(integrate(density, lower = 0, upper = t)[1]))
+	}
+	else {
+		return(1)
+	}
+}
+\end{lstlisting}
+
+\begin{figure}[H]
+	\includegraphics*[scale = 1]{blatt_4_2b.png}
+	\caption{Die Verteilungsfunktion für $f(x) = 0.5015351 \cdot x^{-x} \mathds{1}_{\left[0,4\right]}(x)$.}
+\end{figure}
+
+
+
+\subsection*{(c)}
 
 
 
