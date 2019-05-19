@@ -1,0 +1,159 @@
+%Template
+% !TeX spellcheck = de 
+\documentclass[a4paper]{scrartcl}
+\usepackage[utf8]{inputenc}
+%\usepackage[ngerman]{babel}
+\usepackage{geometry,forloop,fancyhdr,fancybox,lastpage}
+\usepackage{dsfont}
+\usepackage{tikz}
+\usepackage[utf8]{inputenc}
+%\usepackage[T1]{fontec}
+\usepackage{lmodern}
+\usepackage{helvet}
+\usepackage{geometry}
+\usepackage{mathptmx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{tabularx}
+\usepackage{ragged2e}
+\usepackage{array}
+\usepackage[ngerman]{babel}
+%\usepackage[table,dvipsnames,svgnames]{xcolor}
+\usepackage{lscape}
+
+\usepackage{listings}
+\lstset{frame=tb,
+	language=Java,
+	aboveskip=3mm,
+	belowskip=3mm,
+	showstringspaces=false,
+	columns=flexible,
+	basicstyle={\small\ttfamily},
+	numbers=left,
+	numberstyle=\tiny\color{gray},
+	keywordstyle=\color{blue},
+	commentstyle=\color{dkgreen},
+	stringstyle=\color{mauve},
+	breaklines=true,
+	breakatwhitespace=true,
+	tabsize=3
+}
+\geometry{a4paper,left=3cm, right=3cm, top=3cm, bottom=3cm}
+% Diese Daten müssen pro Blatt angepasst werden:
+\newcommand{\NUMBER}{6}
+\newcommand{\EXERCISES}{3}
+% Diese Daten müssen einmalig pro Vorlesung angepasst werden:
+\newcommand{\COURSE}{Stochastik}
+\newcommand{\TUTOR}{TBD}
+\newcommand{\STUDENTA}{Stefan Wezel}
+\newcommand{\STUDENTB}{Stefan Wezel}
+\newcommand{\STUDENTC}{}
+\newcommand{\DEADLINE}{07.06.2018}
+
+
+
+
+%Math
+\usepackage{amsmath,amssymb,tabularx}
+
+%Figures
+\usepackage{graphicx,tikz,color,float}
+\graphicspath{ {home/stefan/picures/} }
+\usetikzlibrary{shapes,trees}
+
+%Algorithms
+\usepackage[ruled,linesnumbered]{algorithm2e}
+
+%Kopf- und Fußzeile
+\pagestyle {fancy}
+\fancyhead[L]{\STUDENTA}
+\fancyhead[C]{\COURSE}
+\fancyhead[R]{\today}
+
+\fancyfoot[L]{}
+\fancyfoot[C]{}
+\fancyfoot[R]{Seite \thepage}
+
+%Formatierung der Überschrift, hier nichts ändern
+\def\header#1#2{
+	\begin{center}
+		{\Large\bf Übungsblatt #1}\\
+		{(Abgabetermin #2)}
+	\end{center}
+}
+
+%Definition der Punktetabelle, hier nichts ändern
+\newcounter{punktelistectr}
+\newcounter{punkte}
+\newcommand{\punkteliste}[2]{%
+	\setcounter{punkte}{#2}%
+	\addtocounter{punkte}{-#1}%
+	\stepcounter{punkte}%<-- also punkte = m-n+1 = Anzahl Spalten[1]
+	\begin{center}%
+		\begin{tabularx}{\linewidth}[]{@{}*{\thepunkte}{>{\centering\arraybackslash} X|}@{}>{\centering\arraybackslash}X}
+			\forloop{punktelistectr}{#1}{\value{punktelistectr} < #2 } %
+			{%
+				\thepunktelistectr &
+			}
+			#2 &  $\Sigma$ \\
+			\hline
+			\forloop{punktelistectr}{#1}{\value{punktelistectr} < #2 } %
+			{%
+				&	
+			} &\\
+			\forloop{punktelistectr}{#1}{\value{punktelistectr} < #2 } %
+			{%
+				&
+			} &\\
+		\end{tabularx}
+	\end{center}
+}
+
+\begin{document}
+
+\section*{Aufgabe 12}
+Um die Teilmengen festzulegen, wollen wir zunaechst herausfinden, was die Umkehrfunktion unserer Zufallsvariable ist. Setzen wir dann die Intervallgrenzen in die Umkehrfunktion ein, so bekommen wir die gesuchten Teilmengen von $\Omega$.
+\subsection*{(a)}
+Für das Intervall $\left[X < 0 \right]$:\\
+\text{Negative Werte muessen hier nicht beruecksichtigt werden, da wir uns im reellen Zahlenraum befinden.}\\
+\\
+Für das Intervall $\left[ 1 \leq x \leq 2 \right]$ setzen wir jetzt die Grenzen 1 und zwei ein. Die Ergebnisse bilden dann die Grenzen des Intervall in der Grundemenge.\\
+$
+X(\omega) = 1 \Rightarrow \omega = 1^2 \Rightarrow \pm 1 \Rightarrow \lbrace x:-1 \leq x \leq 1 \rbrace \subseteq \Omega\\
+X(\omega) = 2 \Rightarrow \omega = 2^2 \Rightarrow \pm 4 \Rightarrow \lbrace x: -4 \leq x \leq 4 \rbrace \subseteq \Omega
+$\\
+\\
+Die Teilmenge ist nun $\lbrace x: -4 \leq x \leq 4 \rbrace $, da sie die andere enthält.
+
+\subsection*{(b)}
+\begin{align*}
+	F_x(t) &= P(\left[x \leq t \right])\\
+	&=P(\lbrace \omega \in \Omega: \sqrt{|\omega|} \leq t)\\
+	\text{1. Fall:}&\\
+	t < 0:&\\
+	&\rightarrow \lbrace \omega \in \Omega: \sqrt{|\omega|} < t\rbrace\\
+	&\rightarrow F_x(t) = P(\emptyset) = 0\\
+	\\
+	\text{2. Fall:}&\\
+	t \geq 0&\\
+	&\rightarrow \lbrace \omega \in \Omega: \sqrt{|\omega|} \leq t\rbrace &= \lbrace \omega \in \Omega: -t^2 \leq \omega \leq t^2\rbrace\\
+	&= \left[-t^2, t^2 \right]\\
+	&\rightarrow F_x(t) = P(\left[-t^2, t^2 \right])\\
+	&=P(\left[-t^2, t^2\right] \cap \left[ -4, 4 \right])\\
+	& = P(\left[-2, 2 \right])
+\end{align*}
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}

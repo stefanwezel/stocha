@@ -89,6 +89,14 @@ print(area_2)
 normalized_area = (1 / 1.6)
 #print(normalized_area)
 
+eq3 = function(x){x^(-x)}
+area3 = integrate(eq3, 0, 4)
+print(area3)
+print(area3[1])
+k = 1/as.numeric(area3[1])
+
+print(k)
+
 curve(eq, from=-1, to=1, xlab="x", ylab="y", 
       xlim = c(-2, 2),
       col = "coral",
