@@ -113,37 +113,49 @@
 \begin{document}
 
 \section*{Aufgabe 12}
-Um die Teilmengen festzulegen, wollen wir zunaechst herausfinden, was die Umkehrfunktion unserer Zufallsvariable ist. Setzen wir dann die Intervallgrenzen in die Umkehrfunktion ein, so bekommen wir die gesuchten Teilmengen von $\Omega$.
 \subsection*{(a)}
+Um die Teilmengen festzulegen, wollen wir zunaechst herausfinden, was die Umkehrfunktion unserer Zufallsvariable ist. Setzen wir dann die Intervallgrenzen in die Umkehrfunktion ein, so bekommen wir die gesuchten Teilmengen von $\Omega$.
+
 Für das Intervall $\left[X < 0 \right]$:\\
 \text{Negative Werte muessen hier nicht beruecksichtigt werden, da wir uns im reellen Zahlenraum befinden.}\\
 \\
-Für das Intervall $\left[ 1 \leq x \leq 2 \right]$ setzen wir jetzt die Grenzen 1 und zwei ein. Die Ergebnisse bilden dann die Grenzen des Intervall in der Grundemenge.\\
+Für das Intervall $\left[ 1 \leq x \leq 2 \right]$ setzen wir jetzt die Grenzen 1 und 2 ein. Die Ergebnisse bilden dann die Grenzen des Intervall in der Grundemenge.\\\\
 $
 X(\omega) = 1 \Rightarrow \omega = 1^2 \Rightarrow \pm 1 \Rightarrow \lbrace x:-1 \leq x \leq 1 \rbrace \subseteq \Omega\\
 X(\omega) = 2 \Rightarrow \omega = 2^2 \Rightarrow \pm 4 \Rightarrow \lbrace x: -4 \leq x \leq 4 \rbrace \subseteq \Omega
-$\\
-\\
-Die Teilmenge ist nun $\lbrace x: -4 \leq x \leq 4 \rbrace $, da sie die andere enthält.
-
+$
 \subsection*{(b)}
+Für die Verteilungsfunktion unterscheiden wir folgende 3 Fälle.\\
+\\
+$
+F_x(t) = P(\left[x \leq t \right])\\
+=P(\lbrace \omega \in \Omega: \sqrt{|\omega|} \leq t)\\
+\\
+F(t) = 
+\begin{cases}
+\text{1. Fall, falls } t < -4:\\
+\text{2. Fall, falls } -4 \leq t < 4\\
+\text{3.Fall, falls } 4 < t
+\end{cases}
+$\\\\
+Nun berechnen wir die einzelnen Fälle:\\
 \begin{align*}
-	F_x(t) &= P(\left[x \leq t \right])\\
-	&=P(\lbrace \omega \in \Omega: \sqrt{|\omega|} \leq t)\\
 	\text{1. Fall:}&\\
-	t < 0:&\\
-	&\rightarrow \lbrace \omega \in \Omega: \sqrt{|\omega|} < t\rbrace\\
-	&\rightarrow F_x(t) = P(\emptyset) = 0\\
-	\\
+	t < -4:&\\
+	F(t) &= P(\left(-\infty, t\right]) = \int_{-\infty}^{t} f(x)dx = 0\\
 	\text{2. Fall:}&\\
-	t \geq 0&\\
-	&\rightarrow \lbrace \omega \in \Omega: \sqrt{|\omega|} \leq t\rbrace &= \lbrace \omega \in \Omega: -t^2 \leq \omega \leq t^2\rbrace\\
-	&= \left[-t^2, t^2 \right]\\
-	&\rightarrow F_x(t) = P(\left[-t^2, t^2 \right])\\
-	&=P(\left[-t^2, t^2\right] \cap \left[ -4, 4 \right])\\
-	& = P(\left[-2, 2 \right])
-\end{align*}
-%TODO ueberarbeiten
+	-4 \leq t < 4&\\
+	F(t) &= P(\left(-\infty, t\right]) = \int_{-\infty}^{t} f(x)dx + \int_{-4}^{t}f(x)dx = 0 + \sqrt{|t|}\\
+	\text{3.Fall:}&\\
+	4 \leq t&\\
+	F(t) &= P(\left(-\infty, t\right]) =\int_{-\infty}^{t} f(x)dx + \int_{-4}^{4}f(x)dx + \int_{4}^{t}f(x)dx\\
+	&=0+1+0 = 1
+\end{align*}\\
+\\
+Die Dichtefunktion $f_X(x)$ ergibt sich aus der Ableitung der gegebenen Verteilungsfunktion. Um die Intervallgrenzen miteinzubeziehen nutzen wir die Indikatorfunktion.\\\\
+$
+F'(x) = f(x) = \frac{d}{dx}\sqrt{|x|} = \frac{1}{2}x^{-\frac{1}{2}} \cdot \frac{d}{dx}|x| = \frac{1}{2}x^{-\frac{1}{2}} \cdot \frac{x}{|x|}
+$
 
 
 
@@ -202,9 +214,104 @@ F <- function(t){
 
 
 \subsection*{(c)}
+\begin{figure}[H]
+	\includegraphics*[scale = 0.5]{blatt_4_13_c.png}
+	\caption{Die Inverse der Verteilungsfunktion für $f(x) = 0.5015351 \cdot x^{-x} \mathds{1}_{\left[0,4\right]}(x)$.
+	(Mit ggplot hat es leider nicht geklappt...)}
+\end{figure}
 
+Die Inverse und der Plot wurden mit folgendem Code erstellt:\\
+\begin{lstlisting}
+	Finv <- Vectorize(function (s)uniroot((function (x) F(x) - s), lower = 0, upper = 4)[1])
+	curve(Finv, 0,1)
+\end{lstlisting}
 
+\newpage
 
+\section*{Aufgabe 14}
+\subsection*{(b)}
+Mithilfe der Gleichung $\omega = X_0(\omega) \cdot 1 + X_1(\omega)\cdot 2$ und dem Wissen, dass $X_0, X_1$ entweder 0 oder 1 sind, können wir kleine Gleichungssysteme aufstellen, und so die Verteilung herausfinden.\\
+
+\begin{align*}
+	0 &= X_0(0) \cdot 1 + X_1(0) \cdot 2\\
+	&= 0 \cdot 1 + 0 \cdot 2\\
+	\\
+	1 &= X_0(1) \cdot 1 + X_1(1) \cdot 2\\
+	&= 1 \cdot 1 + 0 \cdot 2\\
+	\\
+	2 &= X_0(2) \cdot 1 + X_1(2) \cdot 2\\
+	&= 0 \cdot 1 + 1 \cdot 2\\
+	\\
+	3 &= X_0(3) \cdot 1 + X_1(3) \cdot 2\\
+	&= 1 \cdot 1 + 1 \cdot 2\\
+	\\
+\end{align*}\\
+Die Verteilung können wir als Tabelle darstellen:\\\\
+\begin{tabular}{|c|c|c|c|c|}
+	\hline 
+	$\omega$ & 0 & 1 & 2 & 3 \\ 
+	\hline 
+	$X_0(\omega)$ & 0 & 1 & 0 & 1 \\ 
+	\hline 
+	$X_1(\omega)$ & 0 & 0 & 1 & 1 \\ 
+	\hline 
+\end{tabular} \\\\\\
+Daraus ergibt sich folgende Verteilung:\\
+\\
+\begin{align*}
+	X_0(\omega) = 
+	\begin{cases}
+	\text{1, falls } \omega \in \lbrace 1,3 \rbrace\\
+	\text{0, falls } \omega \in \lbrace 0,2 \rbrace
+	\end{cases}\\\\
+	X_1(\omega) = 
+	\begin{cases}
+	\text{1, falls } \omega \in \lbrace 2,3 \rbrace\\
+	\text{0, falls } \omega \in \lbrace 0,1 \rbrace
+	\end{cases}
+\end{align*}
+\newpage
+\subsection*{(b)}
+Für $X_0 \in B_0$ und $X_1 \in B_1$ stellen wir nun Abbildungen $A_0$ und $A_1$ auf.\\
+Für $B_0 = B_1 = \lbrace 0 \rbrace$\\
+$A^0_{B_0} = \lbrace 0, 2 \rbrace$\\
+und: \\
+$A^1_{B_1} = \lbrace 0,1 \rbrace$\\
+$A^0_{B_0} \cap A^1_{B_1} = \lbrace 0 \rbrace$\\
+$\Rightarrow P(\lbrace 0 \rbrace) = P(\lbrace 0,2 \rbrace)P(\lbrace 0,1 \rbrace)$
+$\Rightarrow$ unabhängig $\checkmark$
+\\
+\\
+\\
+Für $B_0 = B_1 = \lbrace 1 \rbrace$\\
+$A^0_{B_0} = \lbrace 1,3 \rbrace$\\
+und: \\
+$A^1_{B_1} = \lbrace 2,3 \rbrace$\\
+$A^0_{B_0} \cap A^1_{B_1} = \lbrace 3 \rbrace$\\
+$\Rightarrow P(\lbrace 3 \rbrace) = P(\lbrace 1,3 \rbrace)P(\lbrace 2,3 \rbrace)$
+$\Rightarrow$ unabhängig $\checkmark$
+\\
+\\
+\\
+Für $B_0 = \lbrace 1 \rbrace , B_1 = \lbrace 0 \rbrace$\\
+$A^0_{B_0} = \lbrace 1,3 \rbrace$\\
+und: \\
+$A^1_{B_1} = \lbrace 0,1 \rbrace$\\
+$A^0_{B_0} \cap A^1_{B_1} = \lbrace 1 \rbrace$\\
+$\Rightarrow P(\lbrace 1 \rbrace) = P(\lbrace 1,3 \rbrace)P(\lbrace 0,1 \rbrace)$
+$\Rightarrow$ unabhängig $\checkmark$
+\\
+\\
+\\
+Für $B_0 = \lbrace 0 \rbrace , B_1 = \lbrace 1 \rbrace$\\
+$A^0_{B_0} = \lbrace 0,2 \rbrace$\\
+und: \\
+$A^1_{B_1} = \lbrace 2,3 \rbrace$\\
+$A^0_{B_0} \cap A^1_{B_1} = \lbrace 2 \rbrace$\\
+$\Rightarrow P(\lbrace 2 \rbrace) = P(\lbrace 0,2 \rbrace)P(\lbrace 2,3 \rbrace)$
+$\Rightarrow$ unabhängig $\checkmark$\\
+\\
+Da alle Ereignisse unabhängig sind, sind es auch die beiden Zufallsvariablen $X_0$ und $X_1$. $\square$
 
 
 

@@ -41,30 +41,32 @@ ggplot(data.frame(x=c(-1, 5)), aes(x=x)) +
    xlab("x") + 
    ylab("y")
 
+# Finv <- function(s){function(x){uniroot(F(x) - s, lower = 0, upper = 1)}}
+# Finv <- function (s) uniroot((function (x) F(x) - s), lower = 0, upper = 1)[1]
+# inverse <- function (f, lower = 0, upper = 1) {
+#    function (s) uniroot((function (x) f(x) - s), lower = lower, upper = upper,extendInt = "yes")[1]
+# }
+Finv <- Vectorize(function (s)uniroot((function (x) F(x) - s), lower = 0, upper = 4)[1])
+curve(Finv, 0,1)
+   
 
-
-
-
+# Finv <- inverse(F, 0,1)
 # Finv <- function(s){
 #    if(s<0){
-#       return(1)
-#    }
-#    else if(s >=0 && s < 4){
-#       return(uniroot(F, c(0,1)))
-#    }
-#    else{
 #       return(0)
 #    }
-# }
+#    else if(s >=0 && s < 4){
+#       # return(uniroot(F, c(0,1)))
+#       # return(uniroot(F,c(0,100),extendInt = "yes")$f.root)
+#    }
+#    else{
+#       return(1)
+#    }}
 
-Finv <- function(s){
-   return(uniroot(F, lower = -200, upper = 200))
-}
 
-
-print(Finv(1)$root)
+# print(Finv(0.9))
 # ggplot(data.frame(x=c(0, 1)), aes(x=x)) +
-#    stat_function(fun=Vectorize(Finv), geom="line", color = "cornflowerblue") +
+#    stat_function(fun=Finv, geom="line", color = "cornflowerblue") +
 #    xlab("x") +
 #    ylab("y")
 
