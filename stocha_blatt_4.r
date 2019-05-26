@@ -46,8 +46,8 @@ ggplot(data.frame(x=c(-1, 5)), aes(x=x)) +
 # inverse <- function (f, lower = 0, upper = 1) {
 #    function (s) uniroot((function (x) f(x) - s), lower = lower, upper = upper,extendInt = "yes")[1]
 # }
-Finv <- Vectorize(function (s)uniroot((function (x) F(x) - s), lower = 0, upper = 4)[1])
-curve(Finv, 0,1)
+   Finv <- Vectorize(function (s)uniroot((function (x) F(x) - s), lower = 0, upper = 4)[1])
+   curve(Finv, 0,1)
    
 
 # Finv <- inverse(F, 0,1)
@@ -69,6 +69,17 @@ curve(Finv, 0,1)
 #    stat_function(fun=Finv, geom="line", color = "cornflowerblue") +
 #    xlab("x") +
 #    ylab("y")
+
+   
+ex = function(x){(x * ((5/8)*(1-x^4)))}
+expected_value = integrate(ex, -1, 1)
+
+print(expected_value)
+
+var = function(x){(x-0)^2*((5/8)*(1-x^4))}
+variance = integrate(var, -1,1)
+print(variance)
+
 
 
 

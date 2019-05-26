@@ -1,0 +1,236 @@
+%Template
+% !TeX spellcheck = de 
+\documentclass[a4paper]{scrartcl}
+\usepackage[utf8]{inputenc}
+%\usepackage[ngerman]{babel}
+\usepackage{geometry,forloop,fancyhdr,fancybox,lastpage}
+\usepackage{dsfont}
+\usepackage{tikz}
+\usepackage[utf8]{inputenc}
+%\usepackage[T1]{fontec}
+\usepackage{lmodern}
+\usepackage{helvet}
+\usepackage{geometry}
+\usepackage{mathptmx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{tabularx}
+\usepackage{ragged2e}
+\usepackage{array}
+\usepackage[ngerman]{babel}
+%\usepackage[table,dvipsnames,svgnames]{xcolor}
+\usepackage{lscape}
+
+\usepackage{listings}
+\lstset{frame=tb,
+	language=Java,
+	aboveskip=3mm,
+	belowskip=3mm,
+	showstringspaces=false,
+	columns=flexible,
+	basicstyle={\small\ttfamily},
+	numbers=left,
+	numberstyle=\tiny\color{gray},
+	keywordstyle=\color{blue},
+	commentstyle=\color{dkgreen},
+	stringstyle=\color{mauve},
+	breaklines=true,
+	breakatwhitespace=true,
+	tabsize=3
+}
+\geometry{a4paper,left=3cm, right=3cm, top=3cm, bottom=3cm}
+% Diese Daten müssen pro Blatt angepasst werden:
+\newcommand{\NUMBER}{6}
+\newcommand{\EXERCISES}{3}
+% Diese Daten müssen einmalig pro Vorlesung angepasst werden:
+\newcommand{\COURSE}{Stochastik}
+\newcommand{\TUTOR}{TBD}
+\newcommand{\STUDENTA}{Stefan Wezel}
+\newcommand{\STUDENTB}{Stefan Wezel}
+\newcommand{\STUDENTC}{}
+\newcommand{\DEADLINE}{07.06.2018}
+
+
+
+
+%Math
+\usepackage{amsmath,amssymb,tabularx}
+
+%Figures
+\usepackage{graphicx,tikz,color,float}
+\graphicspath{ {home/stefan/picures/} }
+\usetikzlibrary{shapes,trees}
+
+%Algorithms
+\usepackage[ruled,linesnumbered]{algorithm2e}
+
+%Kopf- und Fußzeile
+\pagestyle {fancy}
+\fancyhead[L]{\STUDENTA}
+\fancyhead[C]{\COURSE}
+\fancyhead[R]{\today}
+
+\fancyfoot[L]{}
+\fancyfoot[C]{}
+\fancyfoot[R]{Seite \thepage}
+
+%Formatierung der Überschrift, hier nichts ändern
+\def\header#1#2{
+	\begin{center}
+		{\Large\bf Übungsblatt #1}\\
+		{(Abgabetermin #2)}
+	\end{center}
+}
+
+%Definition der Punktetabelle, hier nichts ändern
+\newcounter{punktelistectr}
+\newcounter{punkte}
+\newcommand{\punkteliste}[2]{%
+	\setcounter{punkte}{#2}%
+	\addtocounter{punkte}{-#1}%
+	\stepcounter{punkte}%<-- also punkte = m-n+1 = Anzahl Spalten[1]
+	\begin{center}%
+		\begin{tabularx}{\linewidth}[]{@{}*{\thepunkte}{>{\centering\arraybackslash} X|}@{}>{\centering\arraybackslash}X}
+			\forloop{punktelistectr}{#1}{\value{punktelistectr} < #2 } %
+			{%
+				\thepunktelistectr &
+			}
+			#2 &  $\Sigma$ \\
+			\hline
+			\forloop{punktelistectr}{#1}{\value{punktelistectr} < #2 } %
+			{%
+				&	
+			} &\\
+			\forloop{punktelistectr}{#1}{\value{punktelistectr} < #2 } %
+			{%
+				&
+			} &\\
+		\end{tabularx}
+	\end{center}
+}
+
+\begin{document}
+
+\section*{Aufgabe 15}
+Erwartungswert:\\
+\begin{align*}
+	E(X) & = \int_{-\infty}^{\infty} x \cdot f_X(x) dx\\
+	& = \int_{-\infty}^{-1} x\cdot 8 dx + \int_{-1}^{1} x (\frac{5}{8}(1-x^4))dx + \int_{1}^{\infty}x \cdot 0 dx\\
+	& = 0 + \int_{-1}^{1} x (\frac{5}{8}(1-x^4))dx  + 0\\
+	& = \int_{-1}^{1} x(\frac{5}{8}(1-x^4))dx\\
+	& = \int_{-1}^{1} \frac{5}{8}x - \frac{5}{8}x^5 dx\\
+	& = \frac{5}{8} \cdot \int_{-1}^{1} x - x^5 dx\\
+	& = \frac{5}{8} \cdot  \left[ \frac{1}{2}x^2 - \frac{1}{6} x^6\right]_{-1}^1\\
+	& = \frac{5}{8} \cdot ((\frac{1}{2} - \frac{1}{6}) - (\frac{1}{2} - \frac{1}{6}))\\
+	& = \frac{5}{8} \cdot 0\\
+	& = 0
+\end{align*}
+
+Überprüfen mit R:\\
+\begin{lstlisting}
+	ex = function(x){(x * ((5/8)*(1-x^4)))}
+	expected_value = integrate(ex, -1, 1)
+	print(expected_value)
+	>>> 0
+\end{lstlisting}
+
+$\checkmark$
+
+Varianz:\\
+\begin{align*}
+	Var(X) & = E((X - E(X))^2)\\
+	& = \int_{-1}^{1} (x - E(X))^2 \cdot f_X(x) dx\\
+	& = \int_{-1}^{1} (x-0)^2 \cdot \frac{5}{8}(1-x^4) dx\\
+	& = \frac{5}{8} \cdot \int_{-1}^{1} x^2(1-x^4) dx\\
+	& = \frac{5}{8} \cdot \int_{-1}^{1} x^2 - x^6 dx\\
+	& = \frac{5}{8} \cdot \left[\frac{1}{3}x^3 - \frac{1}{7}x^7\right]_{-1}^1\\
+	& = \frac{5}{8} \cdot ((\frac{1}{3} - \frac{1}{7}) - (-\frac{1}{3} + \frac{1}{7}))\\
+	& = \frac{5}{8} \cdot ((\frac{7}{21} - \frac{3}{21}) - (-\frac{7}{21} + \frac{3}{21}))\\
+	& = \frac{5}{8} \cdot (\frac{4}{21} + \frac{4}{21})\\
+	& = \frac{5}{8} \cdot \frac{8}{21} = \frac{40}{168} = \frac{5}{21} = 0.23809523809
+\end{align*}
+Überprüfen mit R:\\
+\begin{lstlisting}
+	var = function(x){(x-0)^2*((5/8)*(1-x^4))}
+	variance = integrate(var, -1,1)
+	print(variance)
+	>>> 0.2380952
+\end{lstlisting}
+
+$\checkmark$
+
+
+\subsection*{Aufgabe 3}
+\subparagraph*{(a)}
+\begin{align*}
+	\Omega &= \lbrace 1,2,3,4,5,6 \rbrace^{100}\\
+	\mathcal{F} &= \mathcal{P}(\Omega)\\
+	P &= \frac{1}{6^{100}}\\
+	&X:(\Omega, \mathcal{F}) \rightarrow (Z, \mathbb{Z})\\
+	&zB.: X_{99} = (\frac{1}{6^{100}}, x \in \lbrace 1,2,3,4,5,6 \rbrace)	
+\end{align*}
+
+
+\subsection*{(b)}
+
+
+
+
+
+
+
+
+\subsection*{Aufgabe 4}
+Gewinnwahrscheinlichkeiten:\\
+Um die Gewinnwahrscheinlichkeiten eines Würfels $W_a$ im Vergleich zu einem anderen Würfel $W_b$ zu berechnen, multiplizieren wir die Wahrscheinlichkeit der höheren Zahl von $W_a$ mit der Wahrscheinlichkeit der niedrigeren Zahl von $W_b$. Darauf addieren wir dann (wenn die niedrigere Zahl ebenfalls gewinnen könnte) die Wahrscheinlichkeit, dass diese Auftritt multipliziert mit der Wahrscheinlichkeit, der Zahl die noch niedriger als sie ist.\\
+Die Gewinnwahrscheinlichkeit des zweiten Würfels ergibt sich aus $1-P(W_a\;gewinnt)$.\\
+
+\begin{align*}
+	W_1 \text{ gegen } W_2:&\\
+	P(W_1\text{ gewinnt}) &= \frac{2}{6}\\
+	 P(W_2\text{ gewinnt}) & = \frac{4}{6}\\
+	 \\
+	 W_1 \text{ gegen } W_3:&\\
+	 P(W_1\text{ gewinnt})&= \frac{1}{2}\\
+	 P(W_3\text{ gewinnt}) & = \frac{1}{2}\\
+	 \\
+	 W_1 \text{ gegen } W_4:&\\
+	 P(W_1\text{ gewinnt})&= \frac{4}{6}\\
+	 P(W_4\text{ gewinnt})& = \frac{2}{6}\\
+	 \\
+	W_2 \text{ gegen } W_3:&\\
+	P(W_2\text{ gewinnt}) &= \frac{4}{6} \cdot \frac{1}{2} = \frac{4}{12} = \frac{1}{3}\\
+	P(W_3\text{ gewinnt}) & = \frac{1}{2} + \frac{1}{2} \cdot \frac{2}{6} = \frac{1}{2} + \frac{2}{12} = \frac{6}{12} + \frac{2}{12} = \frac{8}{12} = \frac{2}{3}\\ 
+	\\
+	W_2 \text{ gegen } W_4:&\\
+	P(W_2\text{ gewinnt}) &= \frac{4}{6} \cdot \frac{4}{6} = \frac{16}{36} = \frac{4}{9}\\
+	P(W_4\text{ gewinnt}) & = \frac{2}{6} + \frac{2}{6} \cdot \frac{4}{6} = \frac{2}{6} \cdot \frac{8}{36} = \frac{12}{36} + \frac{8}{36} = \frac{20}{36} = \frac{5}{9}\\
+	\\
+	W_3 \text{ gegen } W_4:&\\
+	P(W_3\text{ gewinnt}) &= \frac{1}{2} \cdot\frac{4}{6} = \frac{4}{12} = \frac{1}{3}\\
+	P(W_4\text{ gewinnt}) & = \frac{2}{6} + \frac{4}{6} \cdot \frac{1}{2} = \frac{4}{12} + \frac{4}{12} = \frac{2}{3}	
+\end{align*}
+\\
+\\
+Nun möchten wir herausfinden, ob das Spiel fair ist. Dazu probieren wir alle Möglichkeiten, wie Eva wählen kann aus, und schauen, ob Adam einen Würfel finden kann, mit dem er eine höhere Gewinnwahrscheinlichkeit hat. Dafür nutzen wir unsere Ergebnisse von zuvor.\\
+\\
+Eva wählt $W_1$:\\
+$\rightarrow$ Adam wählt $W_2$ mit Gewinnwahrscheinlichkeit $\frac{4}{6}$
+\\
+\\
+Eva wählt $W_2$:\\
+$\rightarrow$ Adam wählt $W_3$ mit Gewinnwahrscheinlichkeit $\frac{2}{3}$
+\\
+\\
+Eva wählt $W_3$:\\
+$\rightarrow$ Adam wählt $W_4$ mit Gewinnwahrscheinlichkeit $\frac{2}{3}$
+\\
+\\
+Eva wählt $W_4$:\\
+$\rightarrow$ Adam wählt $W_1$ mit Gewinnwahrscheinlichkeit $\frac{4}{6}$
+\\
+\\
+Egal, welchen Würfel Eval also wählt, Adam kann immer einen auswählen, der eine höhere Gewinnwahrscheinlichkeit hat. Das Spiel ist also nicht fair und Adam ein mieser Betrüger...
+
+\end{document}
